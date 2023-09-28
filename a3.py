@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 # Basic characters
 S = np.array(
@@ -63,4 +64,16 @@ H1 = np.array(
 )
 
 # Character variation 2 (blur)
+def box_kernel(size):
+    k = np.ones((size, size), np.float32)/(size**2)
+    return k
+
+
+S2 = cv2.filter2D(S1, -1, box_kernel(2)) # Should we blur more?
+
+J2 = cv2.filter2D(J1, -1, box_kernel(2))
+
+H2 = cv2.filter2D(H1, -1, box_kernel(2))
+
+# Character variation 3 (noise)
 
