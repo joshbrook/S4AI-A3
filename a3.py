@@ -121,7 +121,7 @@ f, ax = plt.subplots(figsize=(11, 9))
 cmap = sns.diverging_palette(260, 25, s=80, center="light", as_cmap=True)
 
 # Draw the heatmap
-ax = sns.heatmap(corr, ax=ax, linewidths=0.5, linecolor='black', clip_on=False, square=True, cmap=cmap)
+ax = sns.heatmap(corr, ax=ax, linewidths=0.5, linecolor='black', clip_on=False, cmap=cmap)
 
 # Add gridlines to separate each letter
 ax.axhline(y=4, color='k', linewidth=5)
@@ -132,8 +132,33 @@ ax.axvline(x=8, color='k', linewidth=5)
 # Adjust tick size and padding
 plt.xticks(fontsize=15)
 plt.yticks(fontsize=15, rotation=0)
-ax.tick_params(axis='both', which='major', pad=5)
+ax.tick_params(axis='both', which='major', labelfontfamily='serif', pad=5)
 
-plt.title("Letter Correlation Matrix", fontsize=20, pad=20)
+cbar = ax.collections[0].colorbar
+cbar.ax.tick_params(labelsize=15, labelfontfamily='serif', pad=5)
+
+plt.title("Letter Correlation Matrix", fontsize=25, pad=20, fontfamily='serif')
 plt.savefig("letter_correlation_matrix.png")
 plt.show()
+
+
+# Recognition matrix
+NN1 = np.array([S, J, H])
+
+# Plot chosen letter
+test = H2
+plt.matshow(np.reshape(np.array(test), [5,5]), cmap="Blues")
+plt.show()
+
+# Test NN
+print(np.matmul(NN1, test))
+print(np.argmax(np.matmul(NN1, test)))
+plt.bar([0,1,2], np.matmul(NN1, test), tick_label=["S", "J", "H"], color=["#74baf7", "#fad56e", "#de6ef0"])
+plt.show()
+
+
+"""
+print(str(np.dot(S, S)) + '\t' + str(np.dot(S, J)) + '\t' + str(np.dot(S, H)))
+print(str(np.dot(J, S)) + '\t' + str(np.dot(J, J)) + '\t' + str(np.dot(J, H)))
+print(str(np.dot(H, S)) + '\t' + str(np.dot(H, J)) + '\t' + str(np.dot(H, H)))
+"""
