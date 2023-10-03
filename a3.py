@@ -146,7 +146,7 @@ plt.show()
 NN1 = np.array([S, J, H])
 
 # Plot chosen letter
-test = H2
+test = S4
 plt.matshow(np.reshape(np.array(test), [5,5]), cmap="Blues")
 plt.show()
 
