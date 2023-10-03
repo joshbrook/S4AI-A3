@@ -77,25 +77,29 @@ J2 = blurring_matrix.dot(J1)
 H2 = blurring_matrix.dot(H1)
 
 # Character variation 3 (noise)
-noise = np.random.normal(0, 0.5, 25)  # Random noise could make creating a recognition matrix difficult
-S3 = S1 + noise
-S3 = np.clip(S3, 0, 1)
+np.random.seed(0)
+pixels = np.random.randint(0,25,10)
+noise = np.random.normal(0, 0.5, 10)
 
-J3 = J1 + noise
-J3 = np.clip(J3, 0, 1)
+S3 = S1
+for i in range(10):
+    S3[pixels[i]] = S1[pixels[i]] + noise[i]
+    S3 = np.clip(S3, 0, 1)
 
-H3 = H1 + noise
-H3 = np.clip(H3, 0, 1)
+J3 = J1
+for i in range(10):
+    J3[pixels[i]] = J1[pixels[i]] + noise[i]
+    J3 = np.clip(J3, 0, 1)
+
+H3 = H1
+for i in range(10):
+    H3[pixels[i]] = H1[pixels[i]] + noise[i]
+    H3 = np.clip(H3, 0, 1)
 
 # Character variation 4 (blur + noise)
-S4 = S2 + noise
-S4 = np.clip(S4, 0, 1)
-
-J4 = J2 + noise
-J4 = np.clip(J4, 0, 1)
-
-H4 = H2 + noise
-H4 = np.clip(H4, 0, 1)
+S4 = blurring_matrix.dot(S3)
+J4 = blurring_matrix.dot(J3)
+H4 = blurring_matrix.dot(H3)
 
 # Correlation matrix
 data = {'S1': S1,
