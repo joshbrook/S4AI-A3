@@ -78,21 +78,21 @@ H2 = blurring_matrix.dot(H1)
 
 # Character variation 3 (noise)
 np.random.seed(0)
-pixels = np.random.randint(0,25,5)
-noise = np.random.normal(0, 0.5, 5)
+pixels = np.random.randint(0,25,10)
+noise = np.random.normal(0, 0.5, 10)
 
 S3 = S1
-for i in range(5):
+for i in range(10):
     S3[pixels[i]] = S1[pixels[i]] + noise[i]
     S3 = np.clip(S3, 0, 1)
 
 J3 = J1
-for i in range(5):
+for i in range(10):
     J3[pixels[i]] = J1[pixels[i]] + noise[i]
     J3 = np.clip(J3, 0, 1)
 
 H3 = H1
-for i in range(5):
+for i in range(10):
     H3[pixels[i]] = H1[pixels[i]] + noise[i]
     H3 = np.clip(H3, 0, 1)
 
@@ -134,8 +134,8 @@ ax.axvline(x=4, color='k', linewidth=5)
 ax.axvline(x=8, color='k', linewidth=5)
 
 # Adjust tick size and padding
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=15, rotation=0)
+#plt.xticks(fontsize=15)
+#plt.yticks(fontsize=15, rotation=0)
 ax.tick_params(axis='both', which='major', labelfontfamily='serif', pad=5)
 
 cbar = ax.collections[0].colorbar
@@ -150,7 +150,7 @@ plt.show()
 NN1 = np.array([S, J, H])
 
 # Plot chosen letter
-test = H2
+test = S3
 plt.matshow(np.reshape(np.array(test), [5,5]), cmap="Blues")
 plt.show()
 
